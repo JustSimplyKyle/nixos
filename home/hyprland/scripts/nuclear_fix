@@ -1,0 +1,10 @@
+#!/bin/bash
+sleep 1
+killall xdg-desktop-portal-hyprland
+sleep 1
+killall xdg-desktop-portal
+sleep 3
+/usr/lib/xdg-desktop-portal-hyprland -r -l DEBUG &
+
+sleep 8
+/usr/lib/xdg-desktop-portal &

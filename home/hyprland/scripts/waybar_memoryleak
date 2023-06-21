@@ -1,0 +1,8 @@
+#!/bin/zsh
+while :
+do
+if [ $(bc <<< "$(ps u -p $(ps u | grep "waybar" | grep -vE "sh" | grep -vE "grep" | awk '{print $2}') | awk '{print $4}' | tail -n 1) > 0.6") -eq 1 ];then
+killall waybar -9
+sleep 3 & hyprctl dispatch exec waybar
+fi
+done

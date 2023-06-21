@@ -1,0 +1,9 @@
+base_DP_3_call="$(hyprctl monitors -j | jq '.[] | select(.name == "DP-3")')"
+DP_3="$(echo "$base_DP_3_call" | jq '.scale')"
+echo "*.dpi: 100" | xrdb -merge
+DP_3_w="$(echo "$base_DP_3_call" | jq '.width')"
+DP_3_h="$(echo "$base_DP_3_call" | jq '.height')"
+scaled_reso_w=$(echo "2560 / $DP_3" | bc -l)
+scaled_reso_h=$(echo "320 / $DP_3" | bc -l)
+echo $scaled_reso_w
+hyprctl keyword monitor "HDMI-A-1,preferred,${scaled_reso_w}x${scaled_reso_h},$DP_3"

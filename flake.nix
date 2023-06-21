@@ -9,6 +9,9 @@
     };
     hyprland.url = "github:hyprwm/Hyprland";
     xdph.url = "github:hyprwm/xdg-desktop-portal-hyprland";
+    ironbar.url = "github:JakeStanger/ironbar";
+    webcord.url = "github:fufexan/webcord-flake";
+    anyrun.url = "github:Kirottu/anyrun";
   };
 
   outputs = inputs@{nixpkgs, home-manager, hyprland, ...}:
@@ -20,10 +23,9 @@
         modules = [
           ./configuration.nix
           ./hardware-configuration.nix
-          # hyprland.nixosModules.default {
-          #   programs.hyprland.enable = true;
-          #   legacyRenderer = true;
-          # }
+          hyprland.nixosModules.default {
+            programs.hyprland.enable = true;
+          }
           home-manager.nixosModules.home-manager {
             home-manager = {
               useUserPackages = true;

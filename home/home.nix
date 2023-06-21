@@ -1,10 +1,18 @@
-{pkgs, inputs, ...}: {
+{pkgs, inputs, ...}:let
+  renogare = pkgs.callPackage ./fonts/renogare.nix { };
+in {
   imports = [
     inputs.hyprland.homeManagerModules.default
+    inputs.ironbar.homeManagerModules.default
+    inputs.webcord.homeManagerModules.default
+    inputs.anyrun.homeManagerModules.default
     ./hyprland
+    ./ironbar
+    ./anyrun.nix
   ];
-  home.packages = with pkgs; [ delta wl-clipboard];
+  home.packages = with pkgs; [ unzip delta wl-clipboard cava renogare ];
   home.stateVersion = "23.05";
+  programs.webcord.enable = true;
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -22,7 +30,7 @@
   programs.gh = {
     enable=true;
   };
-  programs.lazygit={
+  programs.lazygit = {
     enable = true;
     settings = {
       git.paging = { 
@@ -50,7 +58,7 @@
     with pkgs; [ fcitx5-rime ];
   };
   nixpkgs.overlays = [(self: super: {
-      fcitx5-rime-data = ./colemak;
+      rime-data = ./colemak;
       fcitx5-rime = super.fcitx5-rime.override { rimeDataPkgs = [ ./colemak ];};
     }
   )];

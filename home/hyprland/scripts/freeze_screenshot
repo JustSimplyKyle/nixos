@@ -1,0 +1,4 @@
+hyprpicker -r -z &
+PickerProc=$!
+grim -g "$(slurp)" - | shadower | wl-copy -t image/png
+kill $PickerProc

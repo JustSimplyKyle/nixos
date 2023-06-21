@@ -2,14 +2,24 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running `nixos-help`).
 
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs,... }:
 
 {
   nix.settings = {
     experimental-features = ["nix-command" "flakes"];
-    substituters = ["https://hyprland.cachix.org"];
+    substituters = ["https://hyprland.cachix.org" ];
     trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
   };
+  fonts.fonts = with pkgs; [
+    noto-fonts-cjk
+    jetbrains-mono
+    nerdfonts
+  ];
+  zramSwap = {
+    enable = true;
+    memoryPercent = 100;
+  };
+  services.dbus.enable = true;
   # Use the systemd-boot EFI boot loader.
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   boot.loader.systemd-boot.enable = true;

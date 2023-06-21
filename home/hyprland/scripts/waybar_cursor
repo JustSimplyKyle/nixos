@@ -1,0 +1,20 @@
+#!/bin/bash 
+while :
+do
+active_workspace="$(hyprctl monitors -j | jq '.[].activeWorkspace.id')"
+occupied_workspace=("$(hyprctl clients -j | jq -S '[ .[].workspace.id ] | unique | .[]')")
+if [[ ! "${occupied_workspace[*]}" =~ ${active_workspace} ]]; then
+  occupied_workspace+=("$active_workspace")
+fi
+length="$(echo "$occupied_workspace" | jq -s 'length')"
+int_length=$((35*length+24+30))
+cursor_pos_x="$(hyprctl cursorpos | awk '{print $1}' | tr -d ',')"
+cursor_pos_y="$(hyprctl cursorpos | awk '{print $2}')"
+if [ $cursor_pos_x -lt $int_length ] && [ $cursor_pos_y -lt 52 ];then 
+  hyprctl keyword bind ', mouse_up, workspace, +1'
+  hyprctl keyword bind ', mouse_down, workspace, -1'
+else
+  hyprctl keyword unbind ', mouse_up' 
+  hyprctl keyword unbind ', mouse_down'
+fi
+done

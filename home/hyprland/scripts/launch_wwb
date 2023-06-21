@@ -1,0 +1,10 @@
+#!/bin/zsh
+
+if pgrep -f webcord ;then
+  rm ~/.config/WebCord/windowState.json 
+  electron /usr/share/webcord/app.asar --force-audio-share-support 
+  hyprctl dispatch focuswindow "WebCord"
+else
+  rm ~/.config/WebCord/windowState.json 
+  electron /usr/share/webcord/app.asar --force-audio-share-support 
+fi

@@ -1,0 +1,2 @@
+plugins = [
+{ git = "https://github.com/outfoxxed/hy3", branch = "tabs", name = "hy3" },]

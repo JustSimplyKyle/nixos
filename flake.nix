@@ -1,25 +1,37 @@
-
 {
   description = "An example NixOS configuration";
 
   inputs = {
     nixpkgs = { url = "github:nixos/nixpkgs/nixos-unstable"; };
-    nur = { url = "github:nix-community/NUR"; };
+    home-manager = {
+      url = github:nix-community/home-manager;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    hyprland.url = "github:hyprwm/Hyprland";
   };
 
-  outputs = inputs:
-    /* ignore:: */ let ignoreme = ({config,lib,...}: with lib; { system.nixos.revision = mkForce null; system.nixos.versionSuffix = mkForce "pre-git"; }); in
+  outputs = inputs@{nixpkgs, home-manager, hyprland, ...}:
   {
     nixosConfigurations = {
-
-      mysystem = inputs.nixpkgs.lib.nixosSystem {
+      nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
         modules = [
           ./configuration.nix
-
-          /* ignore */ ignoreme # ignore this; don't include it; it is a small helper for this example
+          ./hardware-configuration.nix
+          hyprland.nixosModules.default {
+            programs.hyprland.enable = true;
+          }
+          home-manager.nixosModules.home-manager {
+            home-manager = {
+              useUserPackages = true;
+              useGlobalPkgs = true;
+              extraSpecialArgs = { inherit inputs;};
+              users.kyle = ./home/home.nix;
+            };
+          }
         ];
-        specialArgs = { inherit inputs; };
+        specialArgs = {inherit inputs;};
       };
     };
   };

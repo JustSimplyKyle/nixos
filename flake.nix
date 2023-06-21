@@ -8,6 +8,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland.url = "github:hyprwm/Hyprland";
+    xdph.url = "github:hyprwm/xdg-desktop-portal-hyprland";
   };
 
   outputs = inputs@{nixpkgs, home-manager, hyprland, ...}:
@@ -19,9 +20,10 @@
         modules = [
           ./configuration.nix
           ./hardware-configuration.nix
-          hyprland.nixosModules.default {
-            programs.hyprland.enable = true;
-          }
+          # hyprland.nixosModules.default {
+          #   programs.hyprland.enable = true;
+          #   legacyRenderer = true;
+          # }
           home-manager.nixosModules.home-manager {
             home-manager = {
               useUserPackages = true;

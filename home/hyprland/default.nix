@@ -1,9 +1,13 @@
 {
-  pkgs,config,inputs,...
+  prev,pkgs,lib,config,inputs,hyprland,...
 }:
 {
   wayland.windowManager.hyprland = {
     enable = true;
-    extraConfig = bulitins.readFile ./hyprland.conf
-  }
+    extraConfig = builtins.readFile ./hyprland.conf;
+    recommendedEnvironment = true;
+    package = inputs.hyprland.packages.${pkgs.system}.default.override {
+      legacyRenderer = true;
+    };
+  };
 }

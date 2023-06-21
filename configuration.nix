@@ -19,6 +19,14 @@
     enable = true;
     memoryPercent = 100;
   };
+  xdg.portal = {
+    enable = true;
+    wlr.enable = false;
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
+      inputs.xdph.packages.${pkgs.system}.default
+    ];
+  };
   services.dbus.enable = true;
   # Use the systemd-boot EFI boot loader.
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";

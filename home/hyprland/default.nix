@@ -1,5 +1,5 @@
 {
-  prev,pkgs,lib,config,inputs,hyprland,...
+  pkgs,prev,lib,config,inputs,hyprland,...
 }:
 {
   wayland.windowManager.hyprland = {

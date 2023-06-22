@@ -334,7 +334,7 @@
     "hyprland-protocols_2": {
       "inputs": {
         "nixpkgs": [
-          "xdph",
+          "xdg-desktop-portal-hyprland",
           "nixpkgs"
         ]
       },
@@ -568,7 +568,7 @@
         "ironbar": "ironbar",
         "nixpkgs": "nixpkgs_4",
         "webcord": "webcord",
-        "xdph": "xdph_2"
+        "xdg-desktop-portal-hyprland": "xdg-desktop-portal-hyprland"
       }
     },
     "rust-analyzer-src": {
@@ -679,16 +679,10 @@
         "type": "gitlab"
       }
     },
-    "xdph": {
+    "xdg-desktop-portal-hyprland": {
       "inputs": {
-        "hyprland-protocols": [
-          "hyprland",
-          "hyprland-protocols"
-        ],
-        "nixpkgs": [
-          "hyprland",
-          "nixpkgs"
-        ]
+        "hyprland-protocols": "hyprland-protocols_2",
+        "nixpkgs": "nixpkgs_6"
       },
       "locked": {
         "lastModified": 1685385764,
@@ -704,10 +698,16 @@
         "type": "github"
       }
     },
-    "xdph_2": {
+    "xdph": {
       "inputs": {
-        "hyprland-protocols": "hyprland-protocols_2",
-        "nixpkgs": "nixpkgs_6"
+        "hyprland-protocols": [
+          "hyprland",
+          "hyprland-protocols"
+        ],
+        "nixpkgs": [
+          "hyprland",
+          "nixpkgs"
+        ]
       },
       "locked": {
         "lastModified": 1685385764,

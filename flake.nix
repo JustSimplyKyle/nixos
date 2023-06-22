@@ -8,13 +8,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland.url = "github:hyprwm/Hyprland";
-    xdph.url = "github:hyprwm/xdg-desktop-portal-hyprland";
+    xdg-desktop-portal-hyprland.url = "github:hyprwm/xdg-desktop-portal-hyprland";
     ironbar.url = "github:JakeStanger/ironbar";
     webcord.url = "github:fufexan/webcord-flake";
     anyrun.url = "github:Kirottu/anyrun";
   };
 
-  outputs = inputs@{nixpkgs, home-manager, hyprland, ...}:
+  outputs = inputs@{nixpkgs, home-manager, hyprland, ...}: 
   {
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem {
@@ -29,7 +29,7 @@
           home-manager.nixosModules.home-manager {
             home-manager = {
               useUserPackages = true;
-              useGlobalPkgs = true;
+              useGlobalPkgs = false;
               extraSpecialArgs = { inherit inputs;};
               users.kyle = ./home/home.nix;
             };

@@ -7,8 +7,16 @@
 {
   nix.settings = {
     experimental-features = ["nix-command" "flakes"];
-    substituters = ["https://hyprland.cachix.org" ];
-    trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
+    substituters = [
+      "https://hyprland.cachix.org"
+      "https://anyrun.cachix.org"
+      "https://jakestanger.cachix.org"
+    ];
+    trusted-public-keys = [
+      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+      "anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
+      "jakestanger.cachix.org-1:VWJE7AWNe5/KOEvCQRxoE8UsI2Xs2nHULJ7TEjYm7mM="
+    ];
   };
   fonts.fonts = with pkgs; [
     noto-fonts-cjk
@@ -19,14 +27,7 @@
     enable = true;
     memoryPercent = 100;
   };
-  xdg.portal = {
-    enable = true;
-    wlr.enable = false;
-    extraPortals = [
-      pkgs.xdg-desktop-portal-gtk
-      inputs.xdph.packages.${pkgs.system}.default
-    ];
-  };
+  qt.platformTheme = "qt5ct";
   services.dbus.enable = true;
   # Use the systemd-boot EFI boot loader.
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
@@ -35,6 +36,9 @@
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
   environment.shells = with pkgs; [ zsh ];
+  environment.loginShellInit = ''
+    dbus-update-activation-environment --systemd --all
+  '';
 
   networking.hostName = "nixos"; # Define your hostname.
   # Pick only one of the below networking options.
@@ -77,6 +81,18 @@
   };
 
   hardware.pulseaudio.enable = false;
+  hardware = {
+    opengl = {
+      enable = true;
+      driSupport = true;
+      driSupport32Bit = true;
+      extraPackages = with pkgs; [
+        vaapiVdpau
+        libvdpau-va-gl
+      ];
+    };
+  };
+
 
   services.pipewire = {
        enable = true;
@@ -96,7 +112,7 @@
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
-      firefox
+      chromium
       neovim
       helix
       tree
@@ -106,6 +122,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    xdg-desktop-portal
     wget
     helix
     git

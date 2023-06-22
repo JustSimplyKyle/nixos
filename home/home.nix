@@ -1,4 +1,4 @@
-{pkgs, inputs, ...}:let
+{pkgs, inputs,lib, ...}:let
   renogare = pkgs.callPackage ./fonts/renogare.nix { };
   kvlibadwaita = pkgs.callPackage ./kvlibadwaita.nix { };
 in {
@@ -105,9 +105,11 @@ in {
       }; in
     with pkgs; [ fcitx5-rime ];
   };
-  nixpkgs.overlays = [(self: super: {
-      rime-data = ./colemak;
-      fcitx5-rime = super.fcitx5-rime.override { rimeDataPkgs = [ ./colemak ];};
-    }
-  )];
+  nixpkgs.overlays = [
+    (self: super: {
+        rime-data = ./colemak;
+        fcitx5-rime = super.fcitx5-rime.override { rimeDataPkgs = [ ./colemak ];};
+      }
+    )
+  ];
 }

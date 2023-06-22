@@ -12,10 +12,14 @@
       layer="overlay"; 
       hidePluginInfo=false;
       plugins = [
-        "${inputs.anyrun.packages.${pkgs.system}.anyrun-with-all-plugins}/lib/applications"
-        "${inputs.anyrun.packages.${pkgs.system}.anyrun-with-all-plugins}/lib/rink"
-        "${inputs.anyrun.packages.${pkgs.system}.anyrun-with-all-plugins}/lib/shell"
-        "${inputs.anyrun.packages.${pkgs.system}.anyrun-with-all-plugins}/lib/dictionary"
+        inputs.anyrun.packages.${pkgs.system}.applications
+        inputs.anyrun.packages.${pkgs.system}.rink
+        inputs.anyrun.packages.${pkgs.system}.shell
+        inputs.anyrun.packages.${pkgs.system}.dictionary
+        # "${inputs.anyrun.packages.${pkgs.system}.anyrun-with-all-plugins}/lib/applications"
+        # "${inputs.anyrun.packages.${pkgs.system}.anyrun-with-all-plugins}/lib/rink"
+        # "${inputs.anyrun.packages.${pkgs.system}.anyrun-with-all-plugins}/lib/shell"
+        # "${inputs.anyrun.packages.${pkgs.system}.anyrun-with-all-plugins}/lib/dictionary"
       ];
     };
     extraCss = ''

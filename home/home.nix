@@ -14,12 +14,58 @@ in {
   ];
   home.packages = with pkgs; [ kvlibadwaita imagemagick jq swww lua exa adw-gtk3 unzip delta wl-clipboard cava renogare libsForQt5.qtstyleplugin-kvantum microsoft-edge-dev ];
   home.stateVersion = "23.05";
+  nixpkgs = {
+    config = {
+      allowUnfree = true;
+      allowUnfreePredicate = (pkg: true);
+    };
+  };
   programs.webcord.enable = true;
   programs.zsh = {
     enable = true;
     enableCompletion = true;
     autocd = true;
-    historySubstringSearch.enable=true;
+    enableSyntaxHighlighting = true;
+    enableAutosuggestions = true;
+    historySubstringSearch = {
+      enable = true;
+      searchUpKey = "^[[A";
+      searchDownKey = "^[[B";
+    };
+    initExtra = ''
+      eval "$(lua "$HOME/.zsh/plugins//z.lua/z.lua" --init zsh enhanced once fzf)"
+    '';
+    plugins = [
+      {
+        name = "input";
+        file = "init.zsh";
+        src = pkgs.fetchFromGitHub {
+          owner = "zimfw";
+          repo =  "input";
+          rev = "master";
+          sha256 = "sha256-jH1aTY7vvbA5zygdwUhOloREwjOPftXU/GGuxElTvFE=";
+        };
+      }
+      {
+        name = "z.lua";
+        src = pkgs.fetchFromGitHub {
+          owner = "skywind3000";
+          repo = "z.lua";
+          rev = "HEAD";
+          sha256 = "sha256-n6MkjukFw4Yk1SdnGRIf7XgkesbH5ZIt/EOdLVZC67U=";
+        };
+      }
+      {
+        name = "exa";
+        file = "init.zsh";
+        src = pkgs.fetchFromGitHub {
+          owner = "zimfw";
+          repo =  "exa";
+          rev = "HEAD";
+          sha256 = "sha256-nJcgPvS8ZcVH22rV+pZtf43P1WHOpub67ssyQjJXyh8=";
+        };
+      }
+    ];
     shellAliases = {
       lg = "lazygit";
     };

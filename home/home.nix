@@ -1,5 +1,6 @@
 {pkgs, inputs, ...}:let
   renogare = pkgs.callPackage ./fonts/renogare.nix { };
+  kvlibadwaita = pkgs.callPackage ./kvlibadwaita.nix { };
 in {
   imports = [
     inputs.hyprland.homeManagerModules.default
@@ -10,7 +11,7 @@ in {
     ./ironbar
     ./anyrun.nix
   ];
-  home.packages = with pkgs; [ unzip delta wl-clipboard cava renogare ];
+  home.packages = with pkgs; [ kvlibadwaita imagemagick jq swww lua exa adw-gtk3 unzip delta wl-clipboard cava renogare libsForQt5.qtstyleplugin-kvantum microsoft-edge-dev ];
   home.stateVersion = "23.05";
   programs.webcord.enable = true;
   programs.zsh = {

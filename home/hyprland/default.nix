@@ -1,11 +1,30 @@
 {
   pkgs,prev,lib,config,inputs,hyprland,...
-}:
+}@ args:
 {
   wayland.windowManager.hyprland = {
     enable = true;
-    extraConfig = builtins.readFile ./hyprland.conf;
+    extraConfig = import ./hyprland.nix args;
+    systemdIntegration = true;
     recommendedEnvironment = true;
+  };
+  gtk={
+    enable = true;
+    theme = {
+      name = "adw-gtk3-dark";
+      package = pkgs.adw-gtk3;
+    };
+    gtk3.extraConfig = {
+      Settings = ''
+        gtk-application-prefer-dark-theme=1
+      '';
+    };
+
+    gtk4.extraConfig = {
+      Settings = ''
+        gtk-application-prefer-dark-theme=1
+      '';
+    };
   };
   programs.foot = {
     enable = true;

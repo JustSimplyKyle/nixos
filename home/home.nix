@@ -7,6 +7,7 @@ in {
     inputs.ironbar.homeManagerModules.default
     inputs.webcord.homeManagerModules.default
     inputs.anyrun.homeManagerModules.default
+    ./helix.nix
     ./hyprland
     ./ironbar
     ./anyrun.nix

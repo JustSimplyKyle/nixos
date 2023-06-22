@@ -15,7 +15,7 @@
         soft-wrap.enable = true;
         terminal = {
           command = "footclient";
-          args = [ "sh", "-c" ];
+          args = [ "sh" "-c" ];
         };
         cursor-shape = {
           insert = "bar";
